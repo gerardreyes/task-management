@@ -18,10 +18,6 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
-        $dbUsername = Config::get('database.connections.mysql.username');
-        $dbPassword = Config::get('database.connections.mysql.password');
-        print_r($dbUsername);
-        print_r($dbPassword);
         // Validate user input
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',

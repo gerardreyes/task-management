@@ -3,17 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="009e9737-85ac-4092-a27c-b4f5203cda8c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-management-api/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/config/cors.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/config/sanctum.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/config/sanctum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-ui/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/src/main.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/task-management-ui/src/views/RegisterView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/src/views/RegisterView.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,7 +174,7 @@
       <updated>1695865111284</updated>
       <workItem from="1695865112401" duration="434000" />
       <workItem from="1695866473983" duration="23846000" />
-      <workItem from="1695921440692" duration="2817000" />
+      <workItem from="1695921440692" duration="4049000" />
     </task>
     <servers />
   </component>

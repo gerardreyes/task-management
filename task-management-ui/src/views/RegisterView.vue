@@ -4,27 +4,33 @@
     <form @submit.prevent="register">
       <div class="form-group">
         <label for="name">Name</label>
-        <input v-model="name" type="text" id="name" placeholder="Name" />
+        <input v-model="name" type="text" id="name" placeholder="Name" required />
       </div>
       <div class="form-group">
         <label for="email">Email</label>
-        <input v-model="email" type="email" id="email" placeholder="Email" />
+        <input v-model="email" type="email" id="email" placeholder="Email" required />
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input v-model="password" type="password" id="password" placeholder="Password" />
+        <input v-model="password" type="password" id="password" placeholder="Password" required minlength="8" />
       </div>
-      <button type="submit">Register</button>
+      <button type="submit" class="register-button">Register</button>
+      <button type="button" @click="clearForm" class="clear-button">Clear</button>
     </form>
     <p>
       Already registered? <router-link to="/login">Click here to login</router-link>
     </p>
+    <!-- Display a success message when registration is successful -->
+    <div v-if="successMessage" class="success">{{ successMessage }}</div>
+    <!-- Display a warning message when the registration fails -->
+    <div v-if="warning" class="warning">{{ warning }}</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 import { store } from '@/store'; // Import the store directly from your store file
 
 export default defineComponent({
@@ -32,6 +38,9 @@ export default defineComponent({
     const name = ref('');
     const email = ref('');
     const password = ref('');
+    const successMessage = ref('');
+    const warning = ref('');
+    const router = useRouter();
 
     // Define your request headers
     const headers = {
@@ -40,26 +49,51 @@ export default defineComponent({
     };
 
     const register = () => {
+      // Clear success message when trying to register again
+      successMessage.value = '';
+      warning.value = '';
+
       // Send registration request to Laravel API
       axios
           .post('http://localhost/api/register', {
-          // .post('/api/register', {
             name: name.value,
             email: email.value,
             password: password.value,
           }, { headers })
           .then((response) => {
             // Registration was successful
-            // You can handle the response as needed, e.g., redirect to a login page
+            successMessage.value = 'Registration successful. Please login.';
+            // Clear the form fields
+            name.value = '';
+            email.value = '';
+            password.value = '';
+            // Clear the warning if it was previously shown
+            warning.value = '';
           })
           .catch((error) => {
             // Registration failed, handle errors
             // You can show error messages to the user
-            console.error('Registration error:', error);
+            if (error.response && error.response.data && error.response.data.error) {
+              // Convert the error message object to a more readable format
+              const errorObj = error.response.data.error;
+              const errorMessage = Object.keys(errorObj)
+                  .map((key) => `${errorObj[key][0]}`)
+                  .join(', ');
+              warning.value = 'Registration error: ' + errorMessage;
+            } else {
+              warning.value = 'Registration error';
+            }
           });
     };
 
-    return { name, email, password, register };
+    // Function to clear the form fields
+    const clearForm = () => {
+      name.value = '';
+      email.value = '';
+      password.value = '';
+    };
+
+    return { name, email, password, register, warning, successMessage, clearForm };
   },
 });
 </script>
@@ -72,5 +106,20 @@ export default defineComponent({
 
 label {
   display: block;
+}
+
+.warning {
+  color: red;
+  margin-top: 10px;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+}
+
+/* Add spacing between buttons */
+.register-button {
+  margin-right: 10px;
 }
 </style>
