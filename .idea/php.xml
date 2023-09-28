@@ -1,37 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ChangeListManager">
-    <list default="true" id="009e9737-85ac-4092-a27c-b4f5203cda8c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/app/Http/Controllers/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/app/Http/Controllers/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/config/cors.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/config/cors.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/config/sanctum.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/config/sanctum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/public/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-api/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-api/routes/api.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-ui/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/src/main.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task-management-ui/src/views/RegisterView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/task-management-ui/src/views/RegisterView.vue" afterDir="false" />
-    </list>
-    <option name="SHOW_DIALOG" value="false" />
-    <option name="HIGHLIGHT_CONFLICTS" value="true" />
-    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-    <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
-    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpIncludePathManager">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
@@ -150,56 +119,7 @@
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2W0Mb2A54qtmGJXpQP1G2KlAdLH" />
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/gerardjeromereyes/Sites/task-management",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/gerardjeromereyes/Sites/task-management/task-management-ui/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
-      <method v="2" />
-    </configuration>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="009e9737-85ac-4092-a27c-b4f5203cda8c" name="Changes" comment="" />
-      <created>1695865111284</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1695865111284</updated>
-      <workItem from="1695865112401" duration="434000" />
-      <workItem from="1695866473983" duration="23846000" />
-      <workItem from="1695921440692" duration="2817000" />
-    </task>
-    <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.1">
+    <option name="suggestChangeDefaultLanguageLevel" value="false" />
   </component>
 </project>

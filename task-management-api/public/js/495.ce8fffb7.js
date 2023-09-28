@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktask_management_ui"]=self["webpackChunktask_management_ui"]||[]).push([[495],{9495:function(e,n,a){a.r(n),a.d(n,{default:function(){return f}});var s=a(3396);const t={class:"about"},r=(0,s._)("h1",null,"This is my coding assessment exam for GoTeam by Gerard Jerome Reyes",-1),u=[r];function i(e,n){return(0,s.wg)(),(0,s.iD)("div",t,u)}var c=a(89);const o={},m=(0,c.Z)(o,[["render",i]]);var f=m}}]);
+//# sourceMappingURL=495.ce8fffb7.js.map

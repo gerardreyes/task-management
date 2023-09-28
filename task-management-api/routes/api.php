@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // Register a new user
+//Route::post('/api/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'register']);
 
 // Login an existing user
