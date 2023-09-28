@@ -3,7 +3,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/login', // Redirect to the login page by default
+    component: () => import('@/views/HomeView.vue'),
+  },
+  {
+    path: '/home',
+    component: () => import('@/views/HomeView.vue'),
   },
   {
     path: '/login',
