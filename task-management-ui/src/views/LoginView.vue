@@ -23,6 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
+import { store, useAuthStore } from '@/store'; // Import the store directly from your store file
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
@@ -30,6 +31,7 @@ export default defineComponent({
     const email = ref('');
     const password = ref('');
     const errorMessage = ref('');
+    const authStore = useAuthStore(); // Use the auth store
     const router = useRouter();
 
     const login = () => {
@@ -40,6 +42,7 @@ export default defineComponent({
       axios.post('http://localhost/api/login', { email: email.value, password: password.value })
           .then(() => {
             // Handle successful login
+            authStore.login(); // Call the login action in the auth store
             router.push('/tasks'); // Redirect to the tasks view on success
           })
           .catch((error) => {

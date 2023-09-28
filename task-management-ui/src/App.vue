@@ -2,7 +2,7 @@
   <div id="app">
     <nav>
       <router-link to="/">Home</router-link> |
-      <!-- Display "Tasks" link -->
+      <!-- Display "Tasks" link if logged in -->
       <router-link v-if="isLoggedIn" to="/tasks">Tasks|</router-link>
       <router-link to="/about">About</router-link>
 
@@ -21,19 +21,23 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { store, useAuthStore } from '@/store'; // Import the store directly from your store file
+
 export default {
-  data() {
-    return {
-      // Simulate user authentication status (you should replace this with actual authentication logic)
-      isLoggedIn: false,
-    };
-  },
-  methods: {
-    // Simulate the logout action (you should replace this with actual logout logic)
-    logout() {
-      this.isLoggedIn = false;
+  setup() {
+    const authStore = useAuthStore(); // Use the auth store
+
+    // Use a computed property to get the isLoggedIn status from the store
+    const isLoggedIn = computed(() => authStore.isLoggedIn);
+
+    // Create a logout function that calls the logout action in the store
+    const logout = () => {
+      authStore.logout();
       // Perform logout actions (e.g., clear tokens, redirect to login)
-    },
+    };
+
+    return { isLoggedIn, logout };
   },
 };
 </script>
