@@ -1,6 +1,12 @@
 // Import necessary modules
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import { useAuthStore } from '@/store/auth'; // Import your Pinia store
+import { useAuthStore } from '@/store/auth'; // Import your auth store
+
+// Define a navigation guard function
+const isAuthenticated = () => {
+  const authStore = useAuthStore(); // Use the auth store
+  return authStore.isAuthenticated; // Check if the user is authenticated
+};
 
 // Define your routes
 const routes: Array<RouteRecordRaw> = [
@@ -33,7 +39,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/tasks',
     name: 'TaskView',
     component: () => import('@/views/TaskView.vue'),
-    meta: { requiresAuth: true }, // Add this to indicate that this route requires authentication
+    meta: { requiresAuth: true },
+    beforeEnter: (to, from, next) => {
+      if (isAuthenticated()) {
+        next(); // Allow access if authenticated
+      } else {
+        next('/home'); // Redirect to home if not authenticated
+      }
+    },
   },
 ];
 
@@ -42,6 +55,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
 
 export default router;

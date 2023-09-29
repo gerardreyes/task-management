@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <h1>FYI: Tasks tab is only accessible if logged-in</h1>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>

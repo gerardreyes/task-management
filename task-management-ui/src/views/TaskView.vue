@@ -45,6 +45,7 @@
 import { ref, computed } from 'vue';
 import axios from 'axios'; // Import Axios for HTTP requests
 import { useTaskStore } from '@/store/task'; // Import the task store
+import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'vue-router';
 
 const newTask = ref({
@@ -59,9 +60,24 @@ const router = useRouter();
 
 const tasks = computed(() => taskStore.tasks);
 
+const authStore = useAuthStore();
+
+// Add your bearer token here
+const bearerToken = authStore.getToken();
+console.log('bearerToken');
+console.log(bearerToken);
+
+// Create a custom Axios instance with the Authorization header
+const axiosInstance = axios.create({
+  headers: {
+    Authorization: `Bearer ${bearerToken}`,
+  },
+});
+
+
 const addTask = () => {
-  // Make a POST request to save the new task to Laravel
-  axios
+  // Make a POST request to save the new task to Laravel using the custom Axios instance
+  axiosInstance
       .post('/tasks', newTask.value)
       .then((response) => {
         // Handle success and update your local state with the created task
@@ -89,6 +105,7 @@ const deleteTask = (taskId) => {
   taskStore.deleteTask(taskId); // Call the action in the task store to delete a task
 };
 </script>
+
 
 <style scoped>
 /* Add your CSS styles for the form here */

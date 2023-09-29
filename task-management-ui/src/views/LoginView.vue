@@ -44,9 +44,6 @@ export default defineComponent({
             // Handle successful login
             authStore.login();
 
-            // Log the token to the console to verify its value
-            console.log('Token:', response.data.token);
-
             // Save the authentication token in the store
             authStore.setToken(response.data.token);
 
@@ -59,22 +56,21 @@ export default defineComponent({
                 },
               });
 
-              // Log the user details to the console
-              console.log('User Details:', userDetailsResponse.data);
-
-              // Set user details in the store
+              // Set user details in the store before navigation
               authStore.setUser(userDetailsResponse.data);
+
+              // Navigate to the home page
+              router.push('/home'); // Redirect to the tasks view on success
             } catch (error) {
               console.error('Failed to fetch user details:', error);
             }
-
-            router.push('/home'); // Redirect to the tasks view on success
           })
           .catch((error) => {
             errorMessage.value = 'Login failed. Please try again.';
             console.error('Login Error:', error);
           });
     };
+
 
 
     return { email, password, login, errorMessage };

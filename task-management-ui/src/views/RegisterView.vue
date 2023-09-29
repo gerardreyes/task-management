@@ -30,7 +30,6 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
 // import { API_URL } from '@/config'; // Adjust the import path as needed
 
 export default defineComponent({
@@ -40,7 +39,6 @@ export default defineComponent({
     const password = ref('');
     const successMessage = ref('');
     const warning = ref('');
-    const router = useRouter();
 
     // Define your request headers
     const headers = {
@@ -60,7 +58,7 @@ export default defineComponent({
             email: email.value,
             password: password.value,
           }, { headers })
-          .then((response) => {
+          .then(() => {
             // Registration was successful
             successMessage.value = 'Registration successful. Please login.';
             // Clear the form fields

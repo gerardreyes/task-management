@@ -18,6 +18,9 @@
       <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
     </nav>
     <router-view />
+
+    <!-- Display a greeting to the logged-in user -->
+    <div v-if="isLoggedIn">Hello, {{ userName }}</div>
   </div>
 </template>
 
@@ -34,13 +37,22 @@ export default {
     // Use a computed property to get the isLoggedIn status from the store
     const isLoggedIn = computed(() => authStore.isAuthenticated);
 
+    // Use a computed property to get the user's name from the store
+    console.log('authStore.user');
+    console.log(authStore.user);
+    console.log('this.user');
+    // console.log(this.user);
+    const userName = computed(() => authStore.user?.name || '');
+    console.log('userName');
+    console.log(userName);
+
     // Create a method to log out the user
     const logout = () => {
       authStore.logout(); // Call the logout method from your auth store
       router.push('/login'); // Redirect to the login page after logout
     };
 
-    return { isLoggedIn, logout };
+    return { isLoggedIn, userName, logout };
   },
 };
 </script>
