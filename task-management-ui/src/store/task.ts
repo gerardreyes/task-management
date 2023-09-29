@@ -20,11 +20,18 @@ export const useTaskStore = defineStore({
             // Add your logic here to add the task to the state
             this.tasks.push(task);
         },
+
         // Action to delete a task by ID
         deleteTask(taskId: number) {
             // Add your logic here to delete the task from the state
             this.tasks = this.tasks.filter((task) => task.id !== taskId);
         },
-        // Add more actions as needed (e.g., editTask, fetchTasks, etc.)
+
+        // Mutation to set tasks
+        setTasks(tasks: Task[]) {
+            this.tasks = tasks;
+        },
+
+        // Add more actions as needed (e.g., editTask, etc.)
     },
 });

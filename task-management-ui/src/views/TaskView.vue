@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import axios from 'axios'; // Import Axios for HTTP requests
 import { useAuthStore } from '@/store/auth'; // Import the auth store
 import { useTaskStore } from '@/store/task'; // Import the task store
@@ -59,15 +59,12 @@ const authStore = useAuthStore(); // Use the auth store
 const taskStore = useTaskStore(); // Use the task store
 const router = useRouter();
 
+// Create a computed property to get the tasks from the task store
 const tasks = computed(() => taskStore.tasks);
 
 const addTask = () => {
   const token = authStore.token; // Get the authentication token from the store
   const user = authStore.getUser(); // Get the user_id from the store
-  console.log('task user');
-  console.log(user);
-  console.log('user.id');
-  console.log(user.user.id);
 
   // Create a task object that includes user_id
   const taskData = {
@@ -75,7 +72,7 @@ const addTask = () => {
     description: newTask.value.description,
     due_date: newTask.value.due_date,
     status: newTask.value.status,
-    user_id: user.user.id, // Include the user_id in the task data
+    user_id: user.id, // Include the user_id in the task data
   };
 
   // Make a POST request to save the new task to Laravel with the token in the headers
@@ -102,18 +99,35 @@ const addTask = () => {
       });
 };
 
-
 const editTask = (task) => {
-  // Navigate to the edit task view with the task ID as a parameter
   router.push(`/tasks/edit/${task.id}`);
 };
 
 const deleteTask = (taskId) => {
-  taskStore.deleteTask(taskId); // Call the action in the task store to delete a task
+  taskStore.deleteTask(taskId);
 };
+
+onMounted(async () => {
+  try {
+    // Make a GET request to fetch tasks from the /tasks endpoint
+    // const response = await axios.get('/tasks');
+
+    const token = authStore.token; // Get the authentication token from the store
+
+    const response = await axios.get('/tasks', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // Update the tasks in the task store with the fetched tasks
+    taskStore.setTasks(response.data.tasks);
+  } catch (error) {
+    // Handle error, such as displaying an error message
+    console.error('Error fetching tasks:', error);
+  }
+});
 </script>
-
-
 
 <style scoped>
 /* Add your CSS styles for the form here */
