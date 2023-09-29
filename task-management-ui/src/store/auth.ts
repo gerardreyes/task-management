@@ -23,13 +23,9 @@ export const useAuthStore = defineStore('auth', {
             // this.setUserId(user.id); // Set the user_id in the store
         },
         setUser(user: User | null) {
-            console.log('I am inside setUser');
-            console.log(user)
             this.user = user;
-            console.log(this.user)
         },
         setToken(token: string) {
-            console.log('I am inside setToken');
             this.token = token; // Store the token
         },
         getToken() {
