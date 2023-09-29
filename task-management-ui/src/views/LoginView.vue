@@ -68,7 +68,7 @@ export default defineComponent({
               console.error('Failed to fetch user details:', error);
             }
 
-            // router.push('/home'); // Redirect to the tasks view on success
+            router.push('/home'); // Redirect to the tasks view on success
           })
           .catch((error) => {
             errorMessage.value = 'Login failed. Please try again.';
