@@ -72,7 +72,7 @@ const addTask = () => {
     description: newTask.value.description,
     due_date: newTask.value.due_date,
     status: newTask.value.status,
-    user_id: user.id, // Include the user_id in the task data
+    user_id: user.user.id, // Include the user_id in the task data
   };
 
   // Make a POST request to save the new task to Laravel with the token in the headers
