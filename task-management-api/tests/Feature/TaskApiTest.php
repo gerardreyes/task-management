@@ -85,7 +85,7 @@ class TaskApiTest extends TestCase
             'status' => 'TODO',
             'user_id' => $this->user->id, // Associate the task with the user
         ]);
-        $response->assertStatus(403); // Assert that the task was NOT created successfully
+        $response->assertStatus(401); // Assert that the task was NOT created successfully
         $this->assertDatabaseMissing('tasks', ['title' => 'New Task TODO']);
     }
 
@@ -107,9 +107,8 @@ class TaskApiTest extends TestCase
 
         $response = $this->getJson('/api/tasks'); // Send a GET request to retrieve the list of tasks
 
-        // Assert that the request was successful because it does not require authentication
-        $response->assertStatus(200);
-        $response->assertJsonCount(5, 'tasks'); // Assert that there are 5 tasks in the response
+        // Assert that the request was NOT successful because it does require authentication
+        $response->assertStatus(401);
     }
 
     public function test_get_specific_task_with_authentication(): void
@@ -147,24 +146,8 @@ class TaskApiTest extends TestCase
         // Send a GET request to retrieve the specific task by ID
         $response = $this->getJson("/api/tasks/{$task->id}");
 
-        // Assert that the request was successful because it does not require authentication
-        $response->assertStatus(200);
-
-        // Convert the expected due_date to a formatted string
-        $expectedDueDate = $task->due_date->format('Y-m-d H:i:s');
-
-        // Assert that the response matches the created task, including the formatted due_date
-        $response->assertJson([
-            'task' => [
-                'title' => $task->title,
-                'description' => $task->description,
-                'due_date' => $expectedDueDate, // Format the due_date as a string
-                'status' => $task->status,
-                'user_id' => $task->user_id,
-                'created_at' => $task->created_at->toISOString(),
-                'updated_at' => $task->updated_at->toISOString(),
-            ],
-        ]);
+        // Assert that the request was NOT successful because it does require authentication
+        $response->assertStatus(401);
     }
 
     public function test_update_task_with_authentication(): void
@@ -206,7 +189,7 @@ class TaskApiTest extends TestCase
             'user_id' => $task->user_id,
         ]);
 
-        $response->assertStatus(403); // Assert that the task was NOT updated successfully
+        $response->assertStatus(401); // Assert that the task was NOT updated successfully
         $this->assertDatabaseMissing('tasks', ['title' => 'Updated Task Title Fail']);
 
         $task->refresh(); // Refresh the task instance from the database
@@ -235,8 +218,8 @@ class TaskApiTest extends TestCase
         // Send a DELETE request to delete the specific task by ID
         $response = $this->deleteJson("/api/tasks/{$task->id}");
 
-        $response->assertStatus(403); // Assert that the request was successful
-        $response->assertJson(['message' => 'Unauthorized to delete the task']); // Assert a success message
+        $response->assertStatus(401); // Assert that the request was successful
+        $response->assertJson(['message' => 'Unauthenticated.']); // Assert a success message
 
         // Assert that the task has NOT been deleted from the database
         $this->assertDatabaseHas('tasks', ['id' => $task->id]);

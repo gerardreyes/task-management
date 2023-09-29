@@ -27,19 +27,21 @@ Route::post('/register', [AuthController::class, 'register']);
 // Login an existing user
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user-details', 'AuthController@userDetails');
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user-details', 'AuthController@userDetails');
 
-// Create a new task
-Route::post('/tasks', [TaskController::class, 'store']);
+    // Create a new task
+    Route::post('/tasks', [TaskController::class, 'store']);
 
-// Get a list of all tasks
-Route::get('/tasks', [TaskController::class, 'index']);
+    // Get a list of all tasks
+    Route::get('/tasks', [TaskController::class, 'index']);
 
-// Get a specific task by ID
-Route::get('/tasks/{id}', [TaskController::class, 'show']);
+    // Get a specific task by ID
+    Route::get('/tasks/{id}', [TaskController::class, 'show']);
 
-// Update a task by ID
-Route::put('/tasks/{id}', [TaskController::class, 'update']);
+    // Update a task by ID
+    Route::put('/tasks/{id}', [TaskController::class, 'update']);
 
-// Delete a task by ID
-Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+    // Delete a task by ID
+    Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
+});
