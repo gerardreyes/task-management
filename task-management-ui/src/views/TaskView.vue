@@ -147,10 +147,6 @@ const updateTask = () => {
         // Handle success and update the task in the store
         const updatedTask = response.data.task;
 
-        console.log('updatedTask');
-        console.log(updatedTask);
-        console.log('response');
-        console.log(response);
         // Find the index of the task in the array and update it
         const index = tasks.value.findIndex((task) => task.id === updatedTask.id);
         if (index !== -1) {

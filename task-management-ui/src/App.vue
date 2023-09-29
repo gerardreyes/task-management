@@ -37,13 +37,7 @@ export default {
     const isLoggedIn = computed(() => authStore.isAuthenticated);
 
     // Use a computed property to get the user's name from the store
-    // console.log('authStore.user');
-    // console.log(authStore.user);
-    // console.log('this.user');
-    // // console.log(this.user);
-    const user = computed(() => authStore.getUser() || '');
-    console.log('user');
-    console.log(user);
+    const user = computed(() => authStore.getUser() || '');;
 
     // if (isLoggedIn.value) {
     //   const user = authStore.getUser();
