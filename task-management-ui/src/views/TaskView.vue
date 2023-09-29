@@ -163,7 +163,7 @@ const updateTask = () => {
 // Function to check if the task belongs to the logged-in user
 const isUserTask = (task) => {
   const user = authStore.getUser();
-  return task && task.user_id === user.user.id;
+  return task && user && task.user_id === user?.user.id;
 };
 
 // Function to add a new task
