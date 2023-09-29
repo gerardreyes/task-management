@@ -36,7 +36,7 @@ export const useAuthStore = defineStore('auth', {
             return this.token; // Return the stored token
         },
         getUser() {
-            return this.user; // Return the stored token
+            return this.user ? this.user : '';
         },
         logout() {
             // Log out logic here.
