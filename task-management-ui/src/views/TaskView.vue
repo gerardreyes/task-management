@@ -117,8 +117,22 @@ const editTask = (task) => {
   router.push(`/tasks/edit/${task.id}`);
 };
 
-const deleteTask = (taskId) => {
-  taskStore.deleteTask(taskId);
+const deleteTask = async (taskId) => {
+  try {
+    const token = authStore.token;
+    // Make an HTTP DELETE request to the server
+    await axios.delete(`/tasks/${taskId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // If the request is successful, remove the task from the store
+    taskStore.deleteTask(taskId);
+  } catch (error) {
+    // Handle errors, e.g., display an error message
+    console.error('Error deleting task:', error);
+  }
 };
 
 // Function to check if the task belongs to the logged-in user
