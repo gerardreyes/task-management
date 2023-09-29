@@ -87,7 +87,6 @@ import { ref, computed, onMounted } from 'vue';
 import axios from 'axios'; // Import Axios for HTTP requests
 import { useAuthStore } from '@/store/auth'; // Import the auth store
 import { useTaskStore } from '@/store/task'; // Import the task store
-import { useRouter } from 'vue-router';
 
 const newTask = ref({
   title: '',
@@ -98,7 +97,6 @@ const newTask = ref({
 
 const authStore = useAuthStore(); // Use the auth store
 const taskStore = useTaskStore(); // Use the task store
-const router = useRouter();
 
 // Create a computed property to get the tasks from the task store
 const tasks = computed(() => taskStore.tasks);
