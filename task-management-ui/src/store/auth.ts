@@ -15,10 +15,12 @@ export const useAuthStore = defineStore('auth', {
         token: '', // Store the authentication token
     }),
     actions: {
-        login() {
+        login(user: User) {
             // You can implement your login logic here.
             // For simplicity, we'll just set isAuthenticated to true.
             this.isAuthenticated = true;
+            this.setUser(user); // Set the user details in the store
+            // this.setUserId(user.id); // Set the user_id in the store
         },
         setUser(user: User | null) {
             console.log('I am inside setUser');

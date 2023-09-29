@@ -44,8 +44,8 @@
 <script setup>
 import { ref, computed } from 'vue';
 import axios from 'axios'; // Import Axios for HTTP requests
+import { useAuthStore } from '@/store/auth'; // Import the auth store
 import { useTaskStore } from '@/store/task'; // Import the task store
-import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'vue-router';
 
 const newTask = ref({
@@ -55,30 +55,32 @@ const newTask = ref({
   status: 'TODO',
 });
 
+const authStore = useAuthStore(); // Use the auth store
 const taskStore = useTaskStore(); // Use the task store
 const router = useRouter();
 
 const tasks = computed(() => taskStore.tasks);
 
-const authStore = useAuthStore();
-
-// Add your bearer token here
-const bearerToken = authStore.getToken();
-console.log('bearerToken');
-console.log(bearerToken);
-
-// Create a custom Axios instance with the Authorization header
-const axiosInstance = axios.create({
-  headers: {
-    Authorization: `Bearer ${bearerToken}`,
-  },
-});
-
-
 const addTask = () => {
-  // Make a POST request to save the new task to Laravel using the custom Axios instance
-  axiosInstance
-      .post('/tasks', newTask.value)
+  const token = authStore.token; // Get the authentication token from the store
+  // const userId = authStore.userId; // Get the user_id from the store
+
+  // Create a task object that includes user_id
+  const taskData = {
+    title: newTask.value.title,
+    description: newTask.value.description,
+    due_date: newTask.value.due_date,
+    status: newTask.value.status,
+    user_id: 6, // Include the user_id in the task data
+  };
+
+  // Make a POST request to save the new task to Laravel with the token in the headers
+  axios
+      .post('/tasks', taskData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         // Handle success and update your local state with the created task
         const createdTask = response.data.task;
@@ -96,6 +98,7 @@ const addTask = () => {
       });
 };
 
+
 const editTask = (task) => {
   // Navigate to the edit task view with the task ID as a parameter
   router.push(`/tasks/edit/${task.id}`);
@@ -105,6 +108,7 @@ const deleteTask = (taskId) => {
   taskStore.deleteTask(taskId); // Call the action in the task store to delete a task
 };
 </script>
+
 
 
 <style scoped>

@@ -42,7 +42,7 @@ export default defineComponent({
           .post('login', { email: email.value, password: password.value })
           .then(async (response) => {
             // Handle successful login
-            authStore.login();
+            // authStore.login();
 
             // Save the authentication token in the store
             authStore.setToken(response.data.token);
@@ -57,6 +57,7 @@ export default defineComponent({
               });
 
               // Set user details in the store before navigation
+              authStore.login(userDetailsResponse.data);
               authStore.setUser(userDetailsResponse.data);
 
               // Navigate to the home page
