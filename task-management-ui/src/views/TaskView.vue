@@ -26,6 +26,33 @@
       <button type="submit">Add Task</button>
     </form>
 
+    <!-- Edit Task Form -->
+    <h2>Edit Task</h2>
+    <form v-if="isEditing" @submit.prevent="updateTask">
+      <div class="form-group">
+        <label for="editTitle">Title: </label>
+        <input v-model="editedTask.title" type="text" id="editTitle" required />
+      </div>
+      <div class="form-group">
+        <label for="editDescription">Description: </label>
+        <input v-model="editedTask.description" type="text" id="editDescription" required />
+      </div>
+      <div class="form-group">
+        <label for="editDueDate">Due Date: </label>
+        <input v-model="editedTask.due_date" type="datetime-local" id="editDueDate" required />
+      </div>
+      <div class="form-group">
+        <label for="editStatus">Status: </label>
+        <select v-model="editedTask.status" id="editStatus" required>
+          <option value="TODO">TODO</option>
+          <option value="IN-PROGRESS">IN-PROGRESS</option>
+          <option value="DONE">DONE</option>
+        </select>
+      </div>
+      <button type="submit">Update Task</button>
+      <button @click="cancelEdit">Cancel</button>
+    </form>
+
     <!-- Task List -->
     <h2>Task List</h2>
     <table class="task-table">
@@ -76,9 +103,79 @@ const router = useRouter();
 // Create a computed property to get the tasks from the task store
 const tasks = computed(() => taskStore.tasks);
 
+// State to track whether we are editing a task or not
+const isEditing = ref(false);
+
+// State to store the edited task
+const editedTask = ref({
+  title: '',
+  description: '',
+  due_date: '',
+  status: 'TODO',
+});
+
+// Function to initiate the editing of a task
+const editTask = (task) => {
+  // Populate the form fields with the task's data
+  editedTask.value = { ...task };
+  isEditing.value = true;
+};
+
+// Function to cancel the editing of a task
+const cancelEdit = () => {
+  editedTask.value = {
+    title: '',
+    description: '',
+    due_date: '',
+    status: 'TODO',
+  };
+  isEditing.value = false;
+};
+
+// Function to update a task
+const updateTask = () => {
+  const token = authStore.token;
+
+  // Make an HTTP PUT request to update the task
+  axios
+      .put(`/tasks/${editedTask.value.id}`, editedTask.value, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // Handle success and update the task in the store
+        const updatedTask = response.data.task;
+
+        console.log('updatedTask');
+        console.log(updatedTask);
+        console.log('response');
+        console.log(response);
+        // Find the index of the task in the array and update it
+        const index = tasks.value.findIndex((task) => task.id === updatedTask.id);
+        if (index !== -1) {
+          tasks.value[index] = updatedTask;
+        }
+
+        // Clear the edited task and exit edit mode
+        cancelEdit();
+      })
+      .catch((error) => {
+        // Handle errors, e.g., display an error message
+        console.error('Error updating task:', error);
+      });
+};
+
+// Function to check if the task belongs to the logged-in user
+const isUserTask = (task) => {
+  const user = authStore.getUser();
+  return task.user_id === user.user.id;
+};
+
+// Function to add a new task
 const addTask = () => {
-  const token = authStore.token; // Get the authentication token from the store
-  const user = authStore.getUser(); // Get the user_id from the store
+  const token = authStore.token;
+  const user = authStore.getUser();
 
   // Create a task object that includes user_id
   const taskData = {
@@ -86,7 +183,7 @@ const addTask = () => {
     description: newTask.value.description,
     due_date: newTask.value.due_date,
     status: newTask.value.status,
-    user_id: user.user.id, // Include the user_id in the task data
+    user_id: user.user.id,
   };
 
   // Make a POST request to save the new task to Laravel with the token in the headers
@@ -99,7 +196,7 @@ const addTask = () => {
       .then((response) => {
         // Handle success and update your local state with the created task
         const createdTask = response.data.task;
-        taskStore.addTask(createdTask); // Call the action in the task store to add a task
+        taskStore.addTask(createdTask);
         newTask.value = {
           title: '',
           description: '',
@@ -113,40 +210,14 @@ const addTask = () => {
       });
 };
 
-const editTask = (task) => {
-  router.push(`/tasks/edit/${task.id}`);
-};
-
-const deleteTask = async (taskId) => {
-  try {
-    const token = authStore.token;
-    // Make an HTTP DELETE request to the server
-    await axios.delete(`/tasks/${taskId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    // If the request is successful, remove the task from the store
-    taskStore.deleteTask(taskId);
-  } catch (error) {
-    // Handle errors, e.g., display an error message
-    console.error('Error deleting task:', error);
-  }
-};
-
-// Function to check if the task belongs to the logged-in user
-const isUserTask = (task) => {
-  const user = authStore.getUser();
-  return task.user_id === user.user.id;
+// Function to delete a task
+const deleteTask = (taskId) => {
+  taskStore.deleteTask(taskId);
 };
 
 onMounted(async () => {
   try {
-    // Make a GET request to fetch tasks from the /tasks endpoint
-    // const response = await axios.get('/tasks');
-
-    const token = authStore.token; // Get the authentication token from the store
+    const token = authStore.token;
 
     const response = await axios.get('/tasks', {
       headers: {
@@ -154,11 +225,8 @@ onMounted(async () => {
       },
     });
 
-    // Update the tasks in the task store with the fetched tasks
-    console.log(response.data);
     taskStore.setTasks(response.data.tasks);
   } catch (error) {
-    // Handle error, such as displaying an error message
     console.error('Error fetching tasks:', error);
   }
 });
@@ -191,6 +259,6 @@ button {
 
 /* Add margin to the edit button for space */
 .edit-button {
-  margin-right: 10px; /* Adjust the margin as needed */
+  margin-right: 10px;
 }
 </style>

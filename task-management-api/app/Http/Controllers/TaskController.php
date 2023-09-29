@@ -65,7 +65,7 @@ class TaskController extends Controller
         event(new NewMessage('Task ' . $id. ' has been updated.'));
 
         // Return a success message as a JSON response
-        return response()->json(['message' => 'Task updated successfully']);
+        return response()->json(['message' => 'Task updated successfully', 'task' => $task]);
     }
 
     // Delete a task by ID
