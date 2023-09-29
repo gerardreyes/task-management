@@ -63,7 +63,11 @@ const tasks = computed(() => taskStore.tasks);
 
 const addTask = () => {
   const token = authStore.token; // Get the authentication token from the store
-  // const userId = authStore.userId; // Get the user_id from the store
+  const user = authStore.getUser(); // Get the user_id from the store
+  console.log('task user');
+  console.log(user);
+  console.log('user.id');
+  console.log(user.user.id);
 
   // Create a task object that includes user_id
   const taskData = {
@@ -71,7 +75,7 @@ const addTask = () => {
     description: newTask.value.description,
     due_date: newTask.value.due_date,
     status: newTask.value.status,
-    user_id: 6, // Include the user_id in the task data
+    user_id: user.user.id, // Include the user_id in the task data
   };
 
   // Make a POST request to save the new task to Laravel with the token in the headers
