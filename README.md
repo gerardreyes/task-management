@@ -1,4 +1,4 @@
-<img width="1506" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/6b889dc5-0fd0-4ea7-b399-aec29fe3fa4d"># task-management
+# task-management
 Task Management coding exam using **PHP**, **Laravel 10**, **MySQL**, **Vue.js 3**, **Vue Router**, and **Pinia**, all written in **TypeScript** for **GoTeam** by **Gerard Reyes**
 
 ### How to setup and run?
