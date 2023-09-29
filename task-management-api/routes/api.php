@@ -26,9 +26,10 @@ Route::post('/register', [AuthController::class, 'register']);
 
 // Login an existing user
 Route::post('/login', [AuthController::class, 'login']);
-
+//Route::get('/user-details', [AuthController::class, 'userDetails']);
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/user-details', 'AuthController@userDetails');
+    Route::get('/user-details', [AuthController::class, 'userDetails']);
+//    Route::get('/user-details', 'AuthController@userDetails');
 
     // Create a new task
     Route::post('/tasks', [TaskController::class, 'store']);

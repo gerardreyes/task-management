@@ -60,7 +60,9 @@ class AuthController extends Controller
         // Attempt to log in the user
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = Auth::user();
-            $token = $user->createToken('authToken')->accessToken;
+
+            // Use plainTextToken() to get the token as a plain text string
+            $token = $user->createToken('authToken')->plainTextToken;
 
             return response()->json(['token' => $token], 200);
         } else {

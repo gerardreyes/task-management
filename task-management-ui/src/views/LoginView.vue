@@ -44,17 +44,23 @@ export default defineComponent({
             // Handle successful login
             authStore.login();
 
+            // Log the token to the console to verify its value
+            console.log('Token:', response.data.token);
+
             // Save the authentication token in the store
-            console.log(response.data.token); // can confirm I have token here
             authStore.setToken(response.data.token);
 
             // Fetch user details using the saved token
             try {
+              const token = response.data.token;
               const userDetailsResponse = await axios.get('/user-details', {
                 headers: {
-                  Authorization: `Bearer ${response.data.token}`,
+                  Authorization: `Bearer ${token}`,
                 },
               });
+
+              // Log the user details to the console
+              console.log('User Details:', userDetailsResponse.data);
 
               // Set user details in the store
               authStore.setUser(userDetailsResponse.data);
@@ -62,13 +68,14 @@ export default defineComponent({
               console.error('Failed to fetch user details:', error);
             }
 
-            router.push('/home'); // Redirect to the tasks view on success
+            // router.push('/home'); // Redirect to the tasks view on success
           })
           .catch((error) => {
             errorMessage.value = 'Login failed. Please try again.';
-            console.log(error);
+            console.error('Login Error:', error);
           });
     };
+
 
     return { email, password, login, errorMessage };
   },
