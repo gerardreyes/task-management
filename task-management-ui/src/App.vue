@@ -9,12 +9,13 @@
       <!-- Add a spacer to push the links to the right side -->
       <span class="spacer"></span>
 
+      <!-- Display "Logout" link if logged in -->
+      <router-link v-if="isLoggedIn" @click="logout" to="#">Logout</router-link>
+
       <!-- Display "Login" link if not logged in -->
-      <router-link v-if="!isLoggedIn" to="/login">Login</router-link> |
+      <router-link v-if="!isLoggedIn" to="/login">Login|</router-link>
       <!-- Display "Register" link if not logged in -->
       <router-link v-if="!isLoggedIn" to="/register">Register</router-link>
-      <!-- Display "Logout" link if logged in -->
-      <router-link v-if="isLoggedIn" @click="logout">Logout</router-link>
     </nav>
     <router-view />
   </div>
@@ -22,19 +23,21 @@
 
 <script>
 import { computed } from 'vue';
-import { store, useAuthStore } from '@/store'; // Import the store directly from your store file
+import { useAuthStore } from '@/store/auth'; // Import the store directly from your store file
+import { useRouter } from 'vue-router'; // Import the router
 
 export default {
   setup() {
     const authStore = useAuthStore(); // Use the auth store
+    const router = useRouter(); // Get the router instance
 
     // Use a computed property to get the isLoggedIn status from the store
-    const isLoggedIn = computed(() => authStore.isLoggedIn);
+    const isLoggedIn = computed(() => authStore.isAuthenticated);
 
-    // Create a logout function that calls the logout action in the store
+    // Create a method to log out the user
     const logout = () => {
-      authStore.logout();
-      // Perform logout actions (e.g., clear tokens, redirect to login)
+      authStore.logout(); // Call the logout method from your auth store
+      router.push('/login'); // Redirect to the login page after logout
     };
 
     return { isLoggedIn, logout };

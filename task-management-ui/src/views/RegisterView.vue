@@ -31,7 +31,6 @@
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
-import { store } from '@/store'; // Import the store directly from your store file
 // import { API_URL } from '@/config'; // Adjust the import path as needed
 
 export default defineComponent({

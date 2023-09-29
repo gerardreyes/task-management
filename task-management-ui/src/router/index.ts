@@ -1,5 +1,8 @@
+// Import necessary modules
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { useAuthStore } from '@/store/auth'; // Import your Pinia store
 
+// Define your routes
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -13,6 +16,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/LoginView.vue'),
+    // Add a meta field to specify that this route does not require authentication
+    meta: { requiresAuth: false },
   },
   {
     path: '/register',
@@ -32,25 +37,11 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
+// Create the router
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 
-// Add a global navigation guard to check for authentication
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-
-  // Replace this with your actual authentication logic (e.g., checking if the user is logged in)
-  const isLoggedIn = true; // Example: Assuming the user is logged in
-
-  if (requiresAuth && !isLoggedIn) {
-    // If the route requires authentication and the user is not logged in, redirect to the login page
-    next('/login'); // Replace '/login' with your actual login route
-  } else {
-    // If no authentication is required or the user is logged in, proceed to the route
-    next();
-  }
-});
 
 export default router;

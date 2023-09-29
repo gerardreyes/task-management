@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-import { store, useAuthStore } from '@/store'; // Import the store directly from your store file
+import { useAuthStore } from '@/store/auth'; // Import the store directly from your store file
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
@@ -39,11 +39,11 @@ export default defineComponent({
       errorMessage.value = '';
 
       // Send login request to Laravel API
-      axios.post('http://localhost/api/login', { email: email.value, password: password.value })
+      axios.post('login', { email: email.value, password: password.value })
           .then(() => {
             // Handle successful login
             authStore.login(); // Call the login action in the auth store
-            router.push('/tasks'); // Redirect to the tasks view on success
+            router.push('/home'); // Redirect to the tasks view on success
           })
           .catch((error) => {
             errorMessage.value = 'Login failed. Please try again.';
