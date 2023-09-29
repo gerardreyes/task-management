@@ -45,8 +45,9 @@
         <td>{{ task.due_date }}</td>
         <td>{{ task.status }}</td>
         <td>
-          <button @click="editTask(task)" class="edit-button">Edit</button>
-          <button @click="deleteTask(task.id)">Delete</button>
+          <!-- Conditionally render the Edit and Delete buttons -->
+          <button @click="editTask(task)" v-if="isUserTask(task)" class="edit-button">Edit</button>
+          <button @click="deleteTask(task.id)" v-if="isUserTask(task)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -120,6 +121,12 @@ const deleteTask = (taskId) => {
   taskStore.deleteTask(taskId);
 };
 
+// Function to check if the task belongs to the logged-in user
+const isUserTask = (task) => {
+  const user = authStore.getUser();
+  return task.user_id === user.user.id;
+};
+
 onMounted(async () => {
   try {
     // Make a GET request to fetch tasks from the /tasks endpoint
@@ -134,6 +141,7 @@ onMounted(async () => {
     });
 
     // Update the tasks in the task store with the fetched tasks
+    console.log(response.data);
     taskStore.setTasks(response.data.tasks);
   } catch (error) {
     // Handle error, such as displaying an error message
