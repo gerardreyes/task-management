@@ -4,19 +4,19 @@
     <form @submit.prevent="addTask">
       <h2>Add Task</h2>
       <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title">Title: </label>
         <input v-model="newTask.title" type="text" id="title" required />
       </div>
       <div class="form-group">
-        <label for="description">Description</label>
+        <label for="description">Description: </label>
         <input v-model="newTask.description" type="text" id="description" required />
       </div>
       <div class="form-group">
-        <label for="due_date">Due Date</label>
+        <label for="due_date">Due Date: </label>
         <input v-model="newTask.due_date" type="datetime-local" id="due_date" required />
       </div>
       <div class="form-group">
-        <label for="status">Status</label>
+        <label for="status">Status: </label>
         <select v-model="newTask.status" id="status" required>
           <option value="TODO">TODO</option>
           <option value="IN-PROGRESS">IN-PROGRESS</option>
@@ -28,16 +28,29 @@
 
     <!-- Task List -->
     <h2>Task List</h2>
-    <ul>
-      <li v-for="task in tasks" :key="task.id">
-        <div>{{ task.title }}</div>
-        <div>{{ task.description }}</div>
-        <div>{{ task.due_date }}</div>
-        <div>{{ task.status }}</div>
-        <button @click="editTask(task)">Edit</button>
-        <button @click="deleteTask(task.id)">Delete</button>
-      </li>
-    </ul>
+    <table class="task-table">
+      <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr v-for="task in tasks" :key="task.id">
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.due_date }}</td>
+        <td>{{ task.status }}</td>
+        <td>
+          <button @click="editTask(task)" class="edit-button">Edit</button>
+          <button @click="deleteTask(task.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -131,23 +144,31 @@ onMounted(async () => {
 
 <style scoped>
 /* Add your CSS styles for the form here */
-.form-group {
-  margin-bottom: 15px;
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
-/* Add your CSS styles for the list here */
-ul {
-  list-style: none;
-  padding: 0;
-}
-li {
+
+.task-table th,
+.task-table td {
   border: 1px solid #ccc;
   padding: 10px;
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  text-align: left;
 }
+
+.task-table th {
+  background-color: #f2f2f2;
+}
+
+/* Add your CSS styles for the list here */
 button {
   cursor: pointer;
+}
+
+/* Add margin to the edit button for space */
+.edit-button {
+  margin-right: 10px; /* Adjust the margin as needed */
 }
 </style>
