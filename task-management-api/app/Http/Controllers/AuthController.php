@@ -67,4 +67,29 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
+
+    /**
+     * Get user details.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function userDetails(Request $request)
+    {
+        $user = $request->user();
+
+        if ($user) {
+            // You can customize the user data you want to return here
+            $userData = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                // Add more fields as needed
+            ];
+
+            return response()->json(['user' => $userData], 200);
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    }
 }
