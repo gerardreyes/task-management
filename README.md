@@ -63,6 +63,7 @@ It uses **Laravel Sanctum** to provides authentication system for **SPAs** (sing
 ### Laravel Test
 ------------
 `php artisan test`
+<br>
 <img width="376" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/cafd9024-de75-4c16-9ea6-cdf9406c84d4">
 
 ### License
