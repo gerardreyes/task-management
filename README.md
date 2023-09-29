@@ -27,6 +27,30 @@ Task Management coding exam using **PHP**, **Laravel 10**, **MySQL**, **Vue.js 3
 ------------
 It uses **Laravel Sanctum** to provides authentication system for **SPAs** (single page application). Sanctum allows each user of your application to generate multiple API tokens for their account. These tokens may be granted abilities / scopes which specify which actions the tokens are allowed to perform.
 
+### The Task:
+------------
+1. Build a Task Management web application. - <font color=green>Done</font>
+2. Build it using Laravel version 10. - <font color=green>Done</font>
+3. Use Laravel Sail for your local development setup. - <font color=green>Done</font>
+4. Use Laravel Sanctum for your API authentication system. - <font color=green>Done</font>
+5. Create the necessary API Resource and resource routes in the api.php file. - <font color=green>Done</font>
+6. Implement proper Form Request Validation to make sure that each http request is valid. - <font color=green>Done</font>
+7. Each API route must have a corresponding HTTP Test. - <font color=green>Done</font>
+8. Implement Event Broadcasting to produce a real-time user experience using Pusher Pusher as your driver. - <font color=green>Done</font>
+9. For your Frontend Implementation, you are expected to create a Single Page Application (SPA) using Vue 3, Vue Router, and Pinia, all written in TypeScript. - <font color=green>Done</font>
+10. Secure your SPA with the proper middleware with Laravel Sanctum as your authentication system. - <font color=green>Done</font>
+11. Implement Websocket on task management page with the task details seamlessly updating when a change is made. - <font color=green>Done</font>
+12. Finally, deploy your application on Heruko or any Cloud Platform. - <font color=red>Not Done. I do not have a paid account for Heruko or any Cloud Platform.</font>
+13. A task should have a title, description, due date, and status. - <font color=green>Done</font>
+14. Create the UI in kanban form where the user can sort the tasks and drag them from TODO to IN-PROGRESS to DONE columns. - <font color=orange>I was not able to do this due to time constraint. What I did for this project is a CRUD variation for Task Management. No idea yet on what plugin will help me achieve the UI style to look like a Kanban Board where you can drag and drop but the Update Task is connecting properly to the update endpoint in Laravel. So, it is just a matter of re-using it.</font>
+15. A user should be able to edit, update and delete a task they have created. - <font color=green>Done</font>
+
+### Laravel Test
+------------
+`php artisan test`
+<br>
+<img width="376" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/cafd9024-de75-4c16-9ea6-cdf9406c84d4">
+
 ### Home Page
 ------------
 <img width="1482" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/b0aa7d35-d22b-40c0-86c9-4d7bfcdbc7a4">
@@ -59,12 +83,6 @@ It uses **Laravel Sanctum** to provides authentication system for **SPAs** (sing
 ### Tasks Page - Delete List - Can only delete Tasks you created
 ------------
 <img width="1506" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/13e5fff8-9850-45eb-acb5-059cc4342c27">
-
-### Laravel Test
-------------
-`php artisan test`
-<br>
-<img width="376" alt="image" src="https://github.com/gerardreyes/task-management/assets/13266410/cafd9024-de75-4c16-9ea6-cdf9406c84d4">
 
 ### License
 ------------
