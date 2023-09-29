@@ -42,7 +42,7 @@ It uses **Laravel Sanctum** to provides authentication system for **SPAs** (sing
 11. Implement Websocket on task management page with the task details seamlessly updating when a change is made. - Done
 12. Finally, deploy your application on Heruko or any Cloud Platform. - Not Done. I do not have a paid account for Heruko or any Cloud Platform.
 13. A task should have a title, description, due date, and status. - Done
-14. Create the UI in kanban form where the user can sort the tasks and drag them from TODO to IN-PROGRESS to DONE columns. - <font color=orange>I was not able to do this due to time constraint. What I did for this project is a CRUD variation for Task Management. No idea yet on what plugin will help me achieve the UI style to look like a Kanban Board where you can drag and drop but the Update Task is connecting properly to the update endpoint in Laravel. So, it is just a matter of re-using it.
+14. Create the UI in kanban form where the user can sort the tasks and drag them from TODO to IN-PROGRESS to DONE columns. - I was not able to do this due to time constraint. What I did for this project is a CRUD variation for Task Management. No idea yet on what plugin will help me achieve the UI style to look like a Kanban Board where you can drag and drop but the Update Task is connecting properly to the update endpoint in Laravel. So, it is just a matter of re-using it.
 15. A user should be able to edit, update and delete a task they have created. - Done
 
 ### Laravel Test
