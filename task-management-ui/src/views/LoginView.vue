@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-import { useAuthStore } from '@/store/auth'; // Import the store directly from your store file
+import { useAuthStore } from '@/store/auth';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
@@ -31,22 +31,42 @@ export default defineComponent({
     const email = ref('');
     const password = ref('');
     const errorMessage = ref('');
-    const authStore = useAuthStore(); // Use the auth store
+    const authStore = useAuthStore();
     const router = useRouter();
 
     const login = () => {
-      // Clear previous error message
-      errorMessage.value = '';
+      errorMessage.value = ''; // Clear previous error message
 
       // Send login request to Laravel API
-      axios.post('login', { email: email.value, password: password.value })
-          .then(() => {
+      axios
+          .post('login', { email: email.value, password: password.value })
+          .then(async (response) => {
             // Handle successful login
-            authStore.login(); // Call the login action in the auth store
+            authStore.login();
+
+            // Save the authentication token in the store
+            console.log(response.data.token); // can confirm I have token here
+            authStore.setToken(response.data.token);
+
+            // Fetch user details using the saved token
+            try {
+              const userDetailsResponse = await axios.get('/user-details', {
+                headers: {
+                  Authorization: `Bearer ${response.data.token}`,
+                },
+              });
+
+              // Set user details in the store
+              authStore.setUser(userDetailsResponse.data);
+            } catch (error) {
+              console.error('Failed to fetch user details:', error);
+            }
+
             router.push('/home'); // Redirect to the tasks view on success
           })
           .catch((error) => {
             errorMessage.value = 'Login failed. Please try again.';
+            console.log(error);
           });
     };
 
